@@ -4,11 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="src/styles.css">
+    <title>Weather Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="leading-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="src/styles.css">
+    <header class="bg-gradient-to-r from-blue-500 to-purple-900 text-center text-3xl p-4 font-bold text-white">
+        <h1>Weather Dashboard</h1>
+    </header>
+    <div id="mainDiv" class="container-95 flex gap-5 my-2 py-4">
+        <div>
+            <div class="w-60 border-b-4">
+                <h2 class="font-bold text-xl">Search for a City:</h2>
+                <input class="border-2 rounded-md my-2 w-full" type="text" placeholder="Type any city name">
+                <button id="searchBtn" class="block text-center text-white text-bold bg-blue-400 w-full rounded-md mb-2">Search</button>
+            </div>
+            <div>
+                <h3>Atlanta (3/30/2021)</h3>
+                <p>Temp: <span>74.01 F</span></p>
+                <p>Wind: 6.67 MPH</p>
+                <p>Humidity: <span>46%</span></p>
+                <p>UV index: <span>0.47</span></p>
+            </div>
+        </div>
+        <div class="w-full flex flex-col">
+            <section id="resultTodaySection" class="border-4 w-full h-full m-0 p-4">
     
-    <script src="src/scripts.js"></script>
+            </section>
+            <section id="resultForecastSection" class="mt-8">
+            </section>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="src/scripts.js"></script>
 </body>
 </html>
