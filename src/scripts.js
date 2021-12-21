@@ -6,6 +6,7 @@ var searchBtnEl = $("#searchBtn")
 var prevCitiesListEl = $("#prevCitiesList")
 
 let prevCitiesArray = []
+let prevCitiesString = localStorage.getItem("Previous cities")
 
 let inputCityString;
 
@@ -15,29 +16,30 @@ const exampleCall = "https://api.openweathermap.org/data/2.5/onecall?lat=33.44&l
 
 // Functions
 function storeCity() {
-    prevCitiesString = localStorage.getItem("Previous cities")
-    if (prevCitiesString != null) prevCitiesArray = prevCitiesString.split(",")
-    prevCitiesArray.unshift(inputCityString)
-    prevCitiesArray = new Set(prevCitiesArray)
-    prevCitiesString = Array.from(prevCitiesArray).join(",") 
-    prevCitiesArray = prevCitiesString.split(",")
-    localStorage.setItem('Previous cities', prevCitiesString)
-    renderPrevCities()
+    console.log(prevCitiesArray)
+    prevCitiesArray.unshift(inputCityString);
+    prevCitiesArray = Array.from(new Set(prevCitiesArray)) ;
+    console.log(prevCitiesArray)
+    if (prevCitiesArray.length >= 9) prevCitiesArray.pop();
+    prevCitiesString = prevCitiesArray.join(",");
+    // prevCitiesArray = prevCitiesString.split(",");
+    localStorage.setItem('Previous cities', prevCitiesString);
+    renderPrevCities();
 }
 function renderPrevCities() {
     prevCitiesListEl.html("");
+
     for (i = 0; i < prevCitiesArray.length; i++) {
         const prevCityName = prevCitiesArray[i]
         const prevCityEl = $("<li>");
         prevCityEl.html(`
-        <button id="prevCityBtn" class="block text-center text-bold bg-gray-400 w-full rounded-md mb-2 capitalize">${prevCityName} </button>
+        <button id="prevCityBtn" class="block text-center text-bold bg-gray-400 w-full rounded-md mb-2 capitalize">${prevCityName}</button>
         `);
         prevCitiesListEl.append(prevCityEl);
     };
 };
 function getWeather(url) {
     fetch(url).then(response => response.json()).then(data => {
-        console.log(data)
         createHTML(data)
     })
 }
@@ -82,14 +84,26 @@ function createHTML(weatherData) {
     //     resultForecastSectionEl.apppend(divEl)
     // }
 }
-function eventClick() {
+function inputSearch() {
     inputCityString = $(this).siblings("input").val()
     const geoURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ inputCityString + "&appid=acf279683d77cfa942d0855d6b194227"
     getCoordinates(geoURL)
     storeCity()
     
 }
+function prevCitiesSearch() {
+    inputCityString = $(this).text();
+    console.log(inputCityString)
+    const geoURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ inputCityString + "&appid=acf279683d77cfa942d0855d6b194227"
+    getCoordinates(geoURL)
+    storeCity()
+}
 // Event listeners
-mainDivEl.on('click', "button", eventClick);
+mainDivEl.on('click', "#searchBtn", inputSearch);
+mainDivEl.on('click', "#prevCityBtn", prevCitiesSearch);
 
 //Calls
+if (prevCitiesString != null) {
+    prevCitiesArray = prevCitiesString.split(",")
+    renderPrevCities();
+} 
