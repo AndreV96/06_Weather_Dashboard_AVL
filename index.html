@@ -17,7 +17,7 @@
         <div>
             <div class="w-60 border-b-4 border-[#001021] mb-2">
                 <h2 class="font-bold text-xl">Search for a City:</h2>
-                <input class="border-2 rounded-md my-2 w-full" type="text" placeholder="Type any city name">
+                <input id="inputSearch" class="border-2 rounded-md my-2 w-full" type="text" placeholder="Type any city name">
                 <button id="searchBtn" class="block text-center text-white text-bold bg-blue-400 w-full rounded-md mb-2">Search</button>
             </div>
             <ul id="prevCitiesList">
@@ -26,9 +26,10 @@
         </div>
         <div class="w-full flex flex-col">
             <section id="resultTodaySection" class="border-4 w-full h-full m-0 p-4">
-    
             </section>
-            <section id="resultForecastSection" class="mt-8">
+            
+            <h1 id="forecastH1" class="hidden font-bold text-xl mt-4">5-Day Forecast:</h1>
+            <section id="resultForecastSection" class="mt-8 md:grid md:grid-cols-3 lg:grid-cols-5">
             </section>
         </div>
     </div>

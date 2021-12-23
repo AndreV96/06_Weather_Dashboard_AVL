@@ -4,6 +4,8 @@ var resultTodaySectionEl = $("#resultTodaySection");
 var resultForecastSectionEl = $("#resultForecastSection");
 var searchBtnEl = $("#searchBtn");
 var prevCitiesListEl = $("#prevCitiesList");
+var forecastH1El = $("#forecastH1")
+var inputSearchEl = $("#inputSearch")
 
 let prevCitiesArray = [];
 let prevCitiesString = localStorage.getItem("Previous cities");
@@ -17,16 +19,7 @@ const days = []
 for (i = 0; i < 5; i++) {
     const day = moment.add(1, 'days').format('l')
     days.push(day)
-    console.log(days)
 }
-// const tomorrow = moment.add(1, 'days').format('l')
-// // const afterTomorrow = moment.add(1, 'days').format('l')
-// console.log(tomorrow)
-// console.log(afterTomorrow)
-
-// Search for icons here: https://fontawesome.com/v6.0/icons/cloud-moon?s=solid
-
-const exampleCall = "https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&units=imperial&appid=acf279683d77cfa942d0855d6b194227";
 
 // Functions
 function storeCity() {
@@ -65,19 +58,23 @@ function getCoordinates(url) {
 function createHTML(weatherData) {
     resultForecastSectionEl.html("")
     const currentData = weatherData.current;
+    const currentIconCode = currentData.weather[0].icon
+    const currentIconURL = "https://openweathermap.org/img/wn/" + currentIconCode + "@2x.png"
     const currentTemp = currentData.temp;
     const currentWind = currentData.wind_speed;
     const currentHumid = currentData.humidity;
     const currentUVI = currentData.uvi;
+    forecastH1El.removeClass("hidden")
 
     let lvlClass;
     if (currentUVI < 3) lvlClass = "bg-green-400";
     if (currentUVI >= 3 && currentUVI < 6 ) lvlClass = "bg-yellow-400";
     if (currentUVI >= 6 && currentUVI < 8 ) lvlClass = "bg-orange-400";
     if (currentUVI >= 8) lvlClass = "bg-red-400";
+    resultTodaySectionEl.addClass("bg-gray-300")
     const resultTodayHTML = `
-    <h1 class="text-xl font-bold capitalize">${inputCityString} ${currentDateG}</h2>
-    <i class="fa-solid fa-cloud-moon inline-block"></i>
+    <h1 class="text-xl font-bold capitalize inline-block">${inputCityString} ${currentDateG}</h1>
+    <img class="w-14 h-20 inline-block pb-6" src="${currentIconURL}" alt="icon_id: ${currentIconCode}"> 
     <p>Temp: <span>${currentTemp}°</span></p>
     <p>Wind: <span>${currentWind} MPH</span></p>
     <p>Humidity: <span>${currentHumid}%</span></p>
@@ -86,14 +83,17 @@ function createHTML(weatherData) {
     resultTodaySectionEl.html(resultTodayHTML);
     for (i = 1; i < 6; i++) {        
     let resultForecastEl = document.createElement("div");
+    resultForecastEl.classList.add("mb-4", "bg-[#2d3e50]", "w-40", "text-white", "px-2", "font-bold", "border-2", "border-black")
     let dailyData = weatherData.daily[i]
+    let dailyIconCode = dailyData.weather[0].icon
+    let dailyIconURL = "https://openweathermap.org/img/wn/" + dailyIconCode + "@2x.png"
     let dailyTemp = dailyData.temp.day;
     let dailyWind = dailyData.wind_speed;
     let dailyHumid = dailyData.humidity;
     
     resultForecastEl.innerHTML = `
-    <h1 class="text-xl font-bold capitalize">${inputCityString} ${days[i-1]}</h2>
-    <i class="fa-solid fa-cloud-moon inline-block"></i>
+    <h2 class="text-lg">${days[i-1]}</h2>
+    <img class="w-10 h-16 inline-block pb-6" src="${dailyIconURL}" alt="icon_id: ${dailyIconCode}"> 
     <p>Temp: <span>${dailyTemp}</span></p>
     <p>Wind: <span>${dailyWind} MPH</span></p>
     <p>Humidity: <span>${dailyHumid}</span></p>
