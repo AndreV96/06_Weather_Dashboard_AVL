@@ -112,7 +112,7 @@ function prevCitiesSearch() {
     searchEvent(inputCityString);
 };
 function searchEvent(inputCityString) {
-    const geoURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ inputCityString + "&appid=acf279683d77cfa942d0855d6b194227"
+    const geoURL = "https://api.openweathermap.org/geo/1.0/direct?q="+ inputCityString + "&appid=acf279683d77cfa942d0855d6b194227"
     getCoordinates(geoURL);
     storeCity();
 };
