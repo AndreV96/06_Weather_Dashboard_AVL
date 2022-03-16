@@ -1,8 +1,8 @@
 # Forecasting
 
-* Deployed Webpage link: https://andrev96.github.io/06_Weather_Dashboard_AVL/
+* Deployed Webpage link: https://andrev96.github.io/Forecasting/
 
-* Github Repository link: https://github.com/AndreV96/06_Weather_Dashboard_AVL.git
+* Github Repository link: https://github.com/AndreV96/Forecasting/
 
 ## List of technologies used:
 
