@@ -1,4 +1,4 @@
-# Weather Dashboard
+# Forecasting
 
 * Deployed Webpage link: https://andrev96.github.io/06_Weather_Dashboard_AVL/
 
